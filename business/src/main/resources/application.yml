@@ -1,0 +1,33 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /biz
+spring:
+  application:
+    name: business
+
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: demo_group
+  service:
+    grouplist:
+      default: 10.1.200.138:8091
+
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 10.0.9.105:8848
+      group : SEATA_GROUP
+      username: "nacos"
+      password: "nacos"
+      application: seata-server
+  config:
+    type: nacos
+    nacos:
+      namespace:
+      server-addr: 10.0.9.105:8848
+      group: SEATA_GROUP
+      userName: "nacos"
+      password: "nacos"

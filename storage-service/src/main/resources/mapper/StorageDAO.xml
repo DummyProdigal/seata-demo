@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.bingo.seata.storage.dao.StorageDAO">
+
+    <!-- 开启二级缓存 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="pers.bingo.seata.storage.entity.Storage">
+        <id column="id" property="id" />
+        <result column="commodity_code" property="commodityCode" />
+        <result column="count" property="count" />
+    </resultMap>
+
+    <select id="getCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select s.count from storage_tbl s
+        where s.commodity_code = #{commodityCode}
+    </select>
+
+    <!-- 通用查询结果列 -->
+    <update id="updateRepertory" parameterType="java.util.Map">
+      update storage_tbl
+      set count = #{count}
+      where commodity_code = #{commodityCode}
+    </update>
+
+</mapper>

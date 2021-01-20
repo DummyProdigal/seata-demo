@@ -1,0 +1,43 @@
+server:
+  port: 8001
+  servlet:
+    context-path: /account
+spring:
+  application:
+    name: account-service
+justbon:
+  ds:
+    dynamic:
+      salt: justbond
+      primary: account
+      data-sources:
+        account:
+          username: jcp
+          password: POCRqiCurCA=
+          url: jdbc:mysql://10.0.9.101:3306/test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+          driver-class-name: com.mysql.jdbc.Driver
+          # 数据源类型：Druid
+          type: com.alibaba.druid.pool.DruidDataSource
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: ${spring.application.name}-group
+  service:
+    grouplist:
+      default: 10.1.200.138:8091
+    vgroup-mapping:
+      my_test_tx_group: default
+
+
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 10.0.9.105:8848
+      namespace: dfd1f118-f15c-438c-a238-899fcd0b926c
+      group : "SEATA_GROUP"
+      username: nacos
+      password: nacos
+      application: seata-server
